@@ -1,11 +1,10 @@
-:root {
-  --circle-ratio: 200px;
+/* :root {
+  --elipse-width: 400px;
+  --elipse-height: 400px;
   --imgContainer-width: 50px;
   --imgContainer-height: 50px;
 }
-* {
-  box-sizing: border-box;
-}
+
 
 body {
   margin: 0;
@@ -16,41 +15,53 @@ body {
   height: 100vh;
   display: grid;
   place-items: center;
+  background-color: #d3d3d3;
 }
 
 .circle {
-  width: calc(2 * var(--circle-ratio));
-  height: calc(2 * var(--circle-ratio));
+  width: var(--elipse-width);
+  height: var(--elipse-height);
   border: 1px solid;
   border-radius: 50%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  perspective: 100px;
-
-  transition: transform 1s;
-  animation: rotate 5s infinite linear;
+  display: grid;
+  place-items: center;
 }
 
 .imgContainer {
   width: var(--imgContainer-width);
   height: var(--imgContainer-height);
-  border: 1px solid blue;
-  transform: rotateX(-80deg);
-  transition: transform 1s;
-
-  transform-style: preserve-3d;
-  /* animation: rotateCube 5s infinite linear; */
 
   background-color: blue;
-}
+  cursor: pointer;
 
-@keyframes rotate {
+  transform: translate(0px, calc(var(--elipse-width) * -0.5));
+}
+*/
+
+/* @keyframes rotate {
   0% {
     transform: rotateY(0deg) rotateX(80deg);
   }
   100% {
     transform: rotateY(360deg) rotateX(80deg);
   }
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.moving-div {
+  width: 20px;
+  height: 20px;
+  background-color: #3498db;
+  border-radius: 50%;
+  /* position: absolute; */
 }
