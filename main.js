@@ -1,19 +1,24 @@
-function calcularCoordenadasElipse(a, b, h, k, t) {
-  const x = h + a * Math.cos(t);
-  const y = k + b * Math.sin(t);
-  const z = 0; // O cualquier valor constante para la dimensión z en 2D
+function calcularCoordenadasElipse(majorSemiaxis, minorSemiaxis, ix, iy, t) {
+  const positionX = ix + majorSemiaxis * Math.cos(t);
+  const positionY = iy + minorSemiaxis * Math.sin(t);
 
-  return { x, y, z };
+  return { positionX, positionY };
 }
 
-const div = document.querySelector(".moving-div");
-const a = 200; // Semieje mayor
-const b = 100; // Semieje menor
-const h = 0; // Coordenada x del centro
-const k = 0; // Coordenada y del centro
+const moving = document.querySelector(".moving-div");
+const container = document.querySelector(".container");
+
+const majorSemiaxis = 200; // Semieje mayor
+const minorSemiaxis = 100; // Semieje menor
+const initialPositionX = 0; // Coordenada x del centro
+const initialPositionY = 0; // Coordenada y del centro
 const duracionAnimacion = 5; // en segundos
 const framesPorSegundo = 60;
 const numeroDeFrames = duracionAnimacion * framesPorSegundo;
+
+container.style.width = `${majorSemiaxis * 2}px`;
+container.style.height = `${minorSemiaxis * 2}px`;
+container.style.transform = "";
 
 function animar() {
   let startTime;
@@ -26,10 +31,16 @@ function animar() {
     const progreso = (timestamp - startTime) / (duracionAnimacion * 1000);
 
     if (progreso <= 1) {
-      const t = -progreso * 2 * Math.PI;
-      const coordenadas = calcularCoordenadasElipse(a, b, h, k, t);
+      const t = progreso * 2 * Math.PI + Math.PI / 6;
+      const { positionX, positionY } = calcularCoordenadasElipse(
+        majorSemiaxis,
+        minorSemiaxis,
+        initialPositionX,
+        initialPositionY,
+        t
+      );
 
-      div.style.transform = `translate(${coordenadas.x}px, ${coordenadas.y}px)`;
+      moving.style.transform = `translate(${positionX}px, ${positionY}px)`;
       requestAnimationFrame(animacionLoop);
     } else {
       // Reiniciar la animación después de completar una iteración
